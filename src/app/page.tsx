@@ -5,6 +5,9 @@ import Btn from "./components/btn";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAppDispatch } from "./lib/hook";
+import { login } from "./lib/features/auth/authSlice";
+import useAuth from "./hooks/useAuth";
 
 interface AuthResponse {
   status: number;
@@ -18,17 +21,26 @@ interface AuthResponse {
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { isAuthenticated, token } = useAuth();
+  const dispatch = useAppDispatch();
 
   const handleLogin = async () => {
+    // if the user is already authenticated, redirect to dashboard
+    if (isAuthenticated) {
+      router.push("/dashboard");
+      return;
+    }
+
     setLoading(true);
     try {
       const response: AuthResponse = await axios.get(
         "https://api.samateb.ir/API/Interview/Auth"
       );
 
-      if (response.status === 200) {
+      if (response.status === 200 && response.data.result.credential) {
         const jwtToken = response.data.result.credential;
         document.cookie = `token=${jwtToken}; path=/`;
+        dispatch(login(jwtToken));
         router.push("/dashboard");
       } else {
       }

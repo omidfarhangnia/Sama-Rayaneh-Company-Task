@@ -2,6 +2,14 @@ import axios from "axios";
 
 const BASE_URL = "https://api.samateb.ir/API/v1";
 
+export function getToken() {
+  const token = document.cookie
+    .split(";")
+    .find((cookie) => cookie.trim().startsWith("token="));
+
+  return token ? token.split("=")[1] : null;
+}
+
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -11,13 +19,9 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = document.cookie
-      .split(";")
-      .find((cookie) => cookie.trim().startsWith("token="));
-
+    const token = getToken();
     if (token) {
-      // ["token" , "tokenValue"]
-      config.headers["Authorization"] = "Bearer " + token.split("=")[1];
+      config.headers["Authorization"] = "Bearer " + token;
     }
 
     return config;
