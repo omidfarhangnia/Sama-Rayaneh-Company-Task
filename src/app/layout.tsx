@@ -2,6 +2,7 @@ import { Vazirmatn } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import type { Metadata } from "next";
 import "./style/globals.css";
+import StoreProvider from "./components/storeProvider";
 
 const vazir = Vazirmatn({
   subsets: ["arabic"],
@@ -23,8 +24,10 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" className={vazir.variable}>
       <body>
+        {/* StoreProvider is for MUI */}
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          {children}
+          {/* StoreProvider is for RTK */}
+          <StoreProvider>{children}</StoreProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
