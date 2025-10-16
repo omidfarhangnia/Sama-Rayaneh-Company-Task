@@ -22,7 +22,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl" className={vazir.variable}>
+    <html
+      lang="fa"
+      dir="rtl"
+      className={vazir.variable}
+      suppressHydrationWarning
+    >
       <body>
         {/* StoreProvider is for MUI */}
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>

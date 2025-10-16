@@ -36,7 +36,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         </Toolbar>
       </AppBar>
       <div className="flex flex-col md:flex-row items-center md:h-[calc(100vh-100px)] bg-gray-200">
-        <nav className="flex flex-col w-full md:w-auto bg-gray-800 md:h-full text-white p-4 space-y-2">
+        <nav className="flex flex-col w-full md:w-[20%] bg-gray-800 md:h-full text-white p-4 space-y-2">
           <Link href="/dashboard">
             <div
               className={`px-4 py-3 rounded-lg bg-gray-900 transition duration-150 cursor-pointer ${
@@ -57,7 +57,7 @@ function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </Link>
         </nav>
-        <main className="md:h-[calc(100vh-100px)]">{children}</main>
+        <main className="md:h-[calc(100vh-100px)] md:w-[80%]">{children}</main>
       </div>
     </>
   );
