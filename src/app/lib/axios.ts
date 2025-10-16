@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://api.samateb.ir/API/v1";
+const BASE_URL = "https://api.samateb.ir/API";
 
 export function getToken() {
   const token = document.cookie
