@@ -2,23 +2,45 @@
 
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Btn from "../components/btn";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch } from "../lib/hook";
 import { logout } from "../lib/features/auth/authSlice";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
+import { getToken } from "../lib/axios";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Layout({ children }: { children: React.ReactNode }) {
+  const [loader, setLoader] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    // for decearisng the usage of third party packages i used the code below
+    const token = getToken();
+    if (!token) {
+      router.push("/");
+    } else {
+      setLoader(false);
+    }
+  }, [router]);
+
+  if (loader) {
+    return (
+      <div className="flex h-screen select-none bg-gray-300 items-center justify-center gap-8">
+        <Typography variant="h3">در حال بررسی</Typography>
+        <CircularProgress sx={{ mt: 2 }} color="inherit" />
+      </div>
+    );
+  }
+
   const handleLogout = () => {
     dispatch(logout());
     document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    router.push("/");
+    router.replace("/");
   };
 
   return (
