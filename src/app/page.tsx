@@ -21,7 +21,7 @@ interface AuthResponse {
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { isAuthenticated, token } = useAuth();
+  const { isAuthenticated } = useAuth();
   const dispatch = useAppDispatch();
 
   const handleLogin = async () => {

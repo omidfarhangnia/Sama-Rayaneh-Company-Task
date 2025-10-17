@@ -29,7 +29,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        {/* StoreProvider is for MUI */}
+        {/* AppRouterCacheProvider is for MUI */}
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           {/* StoreProvider is for RTK */}
           <StoreProvider>{children}</StoreProvider>
